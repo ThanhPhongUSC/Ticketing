@@ -20,9 +20,8 @@ router.post('/api/users/signup', [
   }
   const { email, password } = req.body;
 
-  if (!email || typeof email != 'string') {
-    res.status(400).send('provide a valid email');
-  }
+  console.log("Creating a user ... ");
+  res.send({});
 });
 
 export { router as signupRouter };
