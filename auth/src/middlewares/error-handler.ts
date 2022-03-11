@@ -4,7 +4,10 @@ import { DatabaseConnectionError } from '../errors/database-connection-error';
 
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof RequestValidationError) {
-    console.log('handling this error as a request validation error');
+    const formattedErrors = err.errors.map(error => {
+      return { message: error.msg, field: error.param };
+    })
+    return res.status(400).send({ errors: formattedErrors });
   }
 
   if (err instanceof DatabaseConnectionError) {
