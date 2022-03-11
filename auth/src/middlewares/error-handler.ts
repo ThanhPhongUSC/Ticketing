@@ -9,7 +9,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
   }
 
   if (err instanceof DatabaseConnectionError) {
-    return res.status(err.statusCode).send({ errors: [{ message: err.serializeErrors() }] })
+    return res.status(err.statusCode).send({ errors: err.serializeErrors() })
   }
 
   res.status(400).send({
