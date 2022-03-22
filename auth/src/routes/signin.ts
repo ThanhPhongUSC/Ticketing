@@ -23,7 +23,7 @@ router.post('/api/users/signin', [
   async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
-    const exitingUser = await User.findOne({ email, password });
+    const exitingUser = await User.findOne({ email });
     if (!exitingUser) {
       throw new BadRequestError('Invalid credentials');
     }
