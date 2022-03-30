@@ -20,3 +20,13 @@ it('returns a 400 with an invalid email', async () => {
     })
     .expect(400);
 });
+
+it('return a 400 with an invalid password', async () => {
+  return request(app)
+    .post('/api/users/signup')
+    .send({
+      email: 'test@test.com',
+      password: 'p'
+    })
+    .expect(400);
+})
