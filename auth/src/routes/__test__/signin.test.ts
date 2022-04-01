@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
 
-it('fail when an email that does not exist is supplied', async () => {
+it('fails when an email that does not exist is supplied', async () => {
   await request(app)
     .post('/api/users/signin')
     .send({
@@ -10,3 +10,31 @@ it('fail when an email that does not exist is supplied', async () => {
     })
     .expect(400)
 });
+
+it('fails when signin without a password', async () => {
+  await request(app)
+    .post('/api/users/signin')
+    .send({
+      email: 'test@test.com',
+      password: ''
+    })
+    .expect(400)
+})
+
+it('fails when an incorrect password is suplied', async () => {
+  await request(app)
+    .post('/api/users/signup')
+    .send({
+      email: 'test@test.com',
+      password: 'password'
+    })
+    .expect(201)
+
+  await request(app)
+    .post('/api/users/signin')
+    .send({
+      email: 'test@test.com',
+      password: 'asdf'
+    })
+    .expect(400)
+})
