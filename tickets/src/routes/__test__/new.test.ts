@@ -14,8 +14,17 @@ it('can only be accessed if the user is signed in', async () => {
     .post('/api/tickets')
     .send({})
 
-  expect(response.statusCode).not.toEqual(401);
+  expect(response.status).toEqual(401);
 })
+
+it('returns a status other than 401 if the user is signed in', async () => {
+  const response = await request(app)
+    .post('/api/tickets')
+    .send({})
+
+  expect(response.status).not.toEqual(401);
+})
+
 it('return an error if an invalid title is provided', async () => {
 
 })
