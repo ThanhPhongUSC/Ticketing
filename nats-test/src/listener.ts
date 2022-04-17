@@ -17,9 +17,10 @@ stan.on('connect', () => {
   const options = stan
     .subscriptionOptions()
     .setManualAckMode(true)
-    .setDeliverAllAvailable();
+    .setDeliverAllAvailable()
+    .setDurableName('accounting-service');
 
-  const subscription = stan.subscribe('ticket:created', options);
+  const subscription = stan.subscribe('ticket:created', 'orders-service-queue-group', options);
 
   subscription.on('message', (msg: Message) => {
     const data = msg.getData();
